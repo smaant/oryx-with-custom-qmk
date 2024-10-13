@@ -110,6 +110,9 @@ bool rgb_matrix_indicators_user(void) {
     case 3:
       set_layer_color(3);
       break;
+    case 3:
+      set_layer_color(3);
+      break;
     case 4:
       set_layer_color(4);
       break;
