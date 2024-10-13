@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "i18n.h"
+#include "swapper.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
@@ -106,9 +107,6 @@ bool rgb_matrix_indicators_user(void) {
       break;
     case 2:
       set_layer_color(2);
-      break;
-    case 3:
-      set_layer_color(3);
       break;
     case 3:
       set_layer_color(3);
