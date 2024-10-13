@@ -125,6 +125,7 @@ void update_swapper(
      bool *active,
      uint16_t cmdish,
      uint16_t tabish,
+     uint16_t[] arrows,
      uint16_t trigger,
      uint16_t keycode,
      keyrecord_t *record
@@ -141,8 +142,18 @@ void update_swapper(
              // Don't unregister cmdish until some other key is hit or released.
          }
      } else if (*active) {
-         unregister_code(cmdish);
-         *active = false;
+         bool is_arrow = false;
+         for (int i = 0; arrows[i] != '\n'; i++) {
+            if (keycode == arrows[i]) {
+                is_arrow = true;
+            }
+         }
+         if (is_arrow) {
+            register_code(keycode);
+         } else {
+            unregister_code(cmdish);
+            *active = false;
+         }
      }
  }
 
@@ -150,7 +161,7 @@ bool sw_win_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   update_swapper(
-          &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
+          &sw_win_active, KC_LGUI, {KC_LEFT, KC_RIGHT}, KC_TAB, SW_WIN,
           keycode, record
       );
 
