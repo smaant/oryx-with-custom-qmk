@@ -148,9 +148,7 @@ void update_swapper(
                 is_arrow = true;
             }
          }
-         if (is_arrow) {
-            register_code(keycode);
-         } else {
+         if (!is_arrow) {
             unregister_code(cmdish);
             *active = false;
          }
