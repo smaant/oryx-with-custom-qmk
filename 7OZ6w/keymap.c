@@ -125,7 +125,7 @@ void update_swapper(
      bool *active,
      uint16_t cmdish,
      uint16_t tabish,
-     uint16_t[] arrows,
+     const uint16_t arrows[],
      uint16_t trigger,
      uint16_t keycode,
      keyrecord_t *record
@@ -159,9 +159,12 @@ void update_swapper(
 
 bool sw_win_active = false;
 
+const uint16_t PROGMEM arrows[] = {KC_LEFT, KC_RIGHT};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
   update_swapper(
-          &sw_win_active, KC_LGUI, {KC_LEFT, KC_RIGHT}, KC_TAB, SW_WIN,
+          &sw_win_active, KC_LGUI, KC_TAB, arrows, SW_WIN,
           keycode, record
       );
 
