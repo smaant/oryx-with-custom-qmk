@@ -122,6 +122,8 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
+bool sw_win_active = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   update_swapper(
           &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
