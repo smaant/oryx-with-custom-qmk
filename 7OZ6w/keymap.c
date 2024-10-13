@@ -126,7 +126,7 @@ void update_swapper(
      bool *active,
      uint16_t cmdish,
      uint16_t tabish,
-     const uint16_t arrows[],
+     const uint16_t allowed[],
      uint16_t trigger,
      uint16_t keycode,
      keyrecord_t *record
@@ -143,13 +143,13 @@ void update_swapper(
              // Don't unregister cmdish until some other key is hit or released.
          }
      } else if (*active) {
-         bool is_arrow = false;
-         for (int i = 0; arrows[i] != '\n'; i++) {
-            if (keycode == arrows[i]) {
-                is_arrow = true;
+         bool is_allowed = false;
+         for (int i = 0; allowed[i] != '\n'; i++) {
+            if (keycode == allowed[i]) {
+                is_allowed = true;
             }
          }
-         if (!is_arrow) {
+         if (!is_allowed) {
             unregister_code(cmdish);
             *active = false;
          }
@@ -159,17 +159,17 @@ void update_swapper(
 bool sw_app_active = false;
 bool sw_win_active = false;
 
-const uint16_t PROGMEM lr_arrows[] = {KC_LEFT, KC_RIGHT};
+const uint16_t PROGMEM sw_allowed[] = {KC_LEFT, KC_RIGHT, KC_LEFT_SHIFT, KC_RIGHT_SHIFT};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   update_swapper(
-          &sw_app_active, KC_LGUI, KC_TAB, lr_arrows, SW_APP,
+          &sw_app_active, KC_LGUI, KC_TAB, sw_allowed, SW_APP,
           keycode, record
       );
 
   update_swapper(
-          &sw_win_active, KC_LGUI, KC_GRAVE, lr_arrows, SW_WIN,
+          &sw_win_active, KC_LGUI, KC_GRAVE, sw_allowed, SW_WIN,
           keycode, record
       );
 
