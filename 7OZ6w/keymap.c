@@ -7,7 +7,8 @@
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
   MAC_MISSION_CONTROL,
-  SW_WIN,  // Switch to next window         (cmd-tab)
+  SW_APP,  // Switch to next app                        (cmd-tab)
+  SW_WIN,  // Switch to next window of the current app  (cmd-tab)
 };
 
 
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG,        TOGGLE_LAYER_COLOR,RGB_MODE_FORWARD,RGB_SLD,        RGB_VAD,        RGB_VAI,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
     MAC_MISSION_CONTROL,KC_TRANSPARENT, KC_TRANSPARENT, LGUI(KC_LBRC),  LGUI(KC_RBRC),  KC_TRANSPARENT,                                 KC_HOME,        KC_BSPC,        KC_UP,          KC_DELETE,      KC_PAGE_UP,     KC_TRANSPARENT, 
     KC_F11,         KC_LEFT_SHIFT,  KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_GUI,    KC_TRANSPARENT,                                 KC_END,         KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_PGDN,        KC_TRANSPARENT, 
-    TO(0),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TO(3),                                          KC_TRANSPARENT, SW_WIN,   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_LLCK,
+    TO(0),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TO(3),                                          KC_TRANSPARENT, SW_APP,   SW_WIN, KC_TRANSPARENT, KC_TRANSPARENT, QK_LLCK,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_SPACE
   ),
   [3] = LAYOUT_voyager(
@@ -155,16 +156,23 @@ void update_swapper(
      }
  }
 
+bool sw_app_active = false;
 bool sw_win_active = false;
 
-const uint16_t PROGMEM arrows[] = {KC_LEFT, KC_RIGHT};
+const uint16_t PROGMEM lr_arrows[] = {KC_LEFT, KC_RIGHT};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   update_swapper(
-          &sw_win_active, KC_LGUI, KC_TAB, arrows, SW_WIN,
+          &sw_app_active, KC_LGUI, KC_TAB, lr_arrows, SW_APP,
           keycode, record
       );
+
+  update_swapper(
+          &sw_win_active, KC_LGUI, KC_GRAVE, lr_arrows, SW_WIN,
+          keycode, record
+      );
+
 
   switch (keycode) {
     case MAC_MISSION_CONTROL:
