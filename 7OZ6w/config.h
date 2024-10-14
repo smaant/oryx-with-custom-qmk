@@ -12,7 +12,7 @@
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 5
 
-#define SERIAL_NUMBER "7OZ6w/ONEeq"
+#define SERIAL_NUMBER "7OZ6w/LE67A"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 1
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
