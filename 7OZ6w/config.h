@@ -6,13 +6,16 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#undef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 55
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY 0
 
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 5
 
-#define SERIAL_NUMBER "7OZ6w/LE67A"
+#undef MOUSEKEY_WHEEL_TIME_TO_MAX
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 80
+
+#define SERIAL_NUMBER "7OZ6w/jJpWx"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 1
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
